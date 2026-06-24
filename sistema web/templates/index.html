@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Cadastro de Equipamentos</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+
+<div class="cabecalho">
+    <img src="/logo" alt="Logo" class="logo">
+    <h1>Cadastro de Equipamentos</h1>
+</div>
+
+<form action="/cadastrar" method="post">
+
+    <input type="text" name="nome" placeholder="Nome" required>
+
+    <input type="text" name="patrimonio" placeholder="Patrimônio">
+
+    <input type="text" name="marca" placeholder="Marca">
+
+    <input type="text" name="modelo" placeholder="Modelo">
+
+    <input type="text" name="localizacao" placeholder="Localização">
+
+    <select name="status">
+        <option>Ativo</option>
+        <option>Em manutenção</option>
+        <option>Baixado</option>
+    </select>
+
+    <button type="submit">
+        Cadastrar
+    </button>
+
+</form>
+
+<table>
+
+<tr>
+    <th>ID</th>
+    <th>Nome</th>
+    <th>Patrimônio</th>
+    <th>Marca</th>
+    <th>Modelo</th>
+    <th>Localização</th>
+    <th>Status</th>
+    <th>Ações</th>
+</tr>
+
+{% for e in equipamentos %}
+<tr>
+
+<td>{{e.id}}</td>
+<td>{{e.nome}}</td>
+<td>{{e.patrimonio}}</td>
+<td>{{e.marca}}</td>
+<td>{{e.modelo}}</td>
+<td>{{e.localizacao}}</td>
+<td>{{e.status}}</td>
+
+<td>
+    <a href="/editar/{{e.id}}">Editar</a>
+    <a href="/excluir/{{e.id}}">Excluir</a>
+</td>
+
+</tr>
+{% endfor %}
+
+</table>
+
+</body>
+</html>

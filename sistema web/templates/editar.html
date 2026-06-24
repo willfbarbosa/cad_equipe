@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Editar Equipamento</title>
+</head>
+<body>
+
+<h1>Editar Equipamento</h1>
+
+<form action="/atualizar/{{equipamento.id}}" method="post">
+
+<input type="text"
+name="nome"
+value="{{equipamento.nome}}">
+
+<input type="text"
+name="patrimonio"
+value="{{equipamento.patrimonio}}">
+
+<input type="text"
+name="marca"
+value="{{equipamento.marca}}">
+
+<input type="text"
+name="modelo"
+value="{{equipamento.modelo}}">
+
+<input type="text"
+name="localizacao"
+value="{{equipamento.localizacao}}">
+
+<input type="text"
+name="status"
+value="{{equipamento.status}}">
+
+<button type="submit">
+Salvar
+</button>
+
+</form>
+
+</body>
+</html>
