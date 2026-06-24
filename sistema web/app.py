@@ -3,6 +3,8 @@ import sqlite3
 from flask import send_from_directory
 app = Flask(__name__)
 
+
+
 @app.route('/logo')
 def logo():
     return send_from_directory('.', 'logo.png')
@@ -21,6 +23,7 @@ def criar_tabela():
             marca TEXT,
             modelo TEXT,
             localizacao TEXT,
+            ip TEXT,
             status TEXT
         )
     """)
@@ -31,10 +34,33 @@ criar_tabela()
 
 @app.route("/")
 def index():
+    pesquisa = request.args.get("pesquisa", "")
+
     conn = conectar()
-    equipamentos = conn.execute(
-        "SELECT * FROM equipamentos"
-    ).fetchall()
+
+    if pesquisa:
+
+        equipamentos = conn.execute("""
+
+            SELECT *
+            FROM equipamentos
+
+            WHERE nome LIKE ?
+            OR ip LIKE ?
+
+        """,
+
+        (f"%{pesquisa}%",
+         f"%{pesquisa}%")
+
+        ).fetchall()
+
+    else:
+
+        equipamentos = conn.execute(
+            "SELECT * FROM equipamentos"
+        ).fetchall()
+
     conn.close()
 
     return render_template(
@@ -50,16 +76,17 @@ def cadastrar():
     marca = request.form["marca"]
     modelo = request.form["modelo"]
     localizacao = request.form["localizacao"]
+    ip = request.form["ip"]
     status = request.form["status"]
 
     conn = conectar()
 
     conn.execute("""
         INSERT INTO equipamentos
-        (nome, patrimonio, marca, modelo, localizacao, status)
-        VALUES (?, ?, ?, ?, ?, ?)
+        (nome, patrimonio, marca, modelo, localizacao, ip, status)
+        VALUES (?, ?, ?, ?, ?, ?, ?)
     """,
-    (nome, patrimonio, marca, modelo, localizacao, status))
+    (nome, patrimonio, marca, modelo, localizacao, ip, status))
 
     conn.commit()
     conn.close()
@@ -95,6 +122,7 @@ def atualizar(id):
             marca=?,
             modelo=?,
             localizacao=?,
+            ip=?,       
             status=?
         WHERE id=?
     """, (

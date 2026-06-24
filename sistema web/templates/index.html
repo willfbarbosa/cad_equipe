@@ -11,6 +11,16 @@
     <h1>Cadastro de Equipamentos</h1>
 </div>
 
+<form method="GET" action="/">
+    <input type="text"
+           name="pesquisa"
+           placeholder="Pesquisar por Nome ou IP">
+
+    <button type="submit">
+        Pesquisar
+    </button>
+</form>
+
 <form action="/cadastrar" method="post">
 
     <input type="text" name="nome" placeholder="Nome" required>
@@ -22,6 +32,8 @@
     <input type="text" name="modelo" placeholder="Modelo">
 
     <input type="text" name="localizacao" placeholder="Localização">
+
+    <input type="text" name="ip" placeholder="IP">
 
     <select name="status">
         <option>Ativo</option>
@@ -44,6 +56,7 @@
     <th>Marca</th>
     <th>Modelo</th>
     <th>Localização</th>
+    <th>IP</th>
     <th>Status</th>
     <th>Ações</th>
 </tr>
@@ -57,6 +70,7 @@
 <td>{{e.marca}}</td>
 <td>{{e.modelo}}</td>
 <td>{{e.localizacao}}</td>
+<td>{{e.ip}}</td>
 <td>{{e.status}}</td>
 
 <td>
